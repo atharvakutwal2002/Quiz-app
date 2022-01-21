@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questions</title>
+    <style>
+      label {
+        display: inline-block;
+        width: 90px;
+      }
+      input,
+      select {
+        width: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    <label >Question</label><input style="width: 100%;" id="Quebox1" type="text" /> 
+    <label style="visibility: hidden;">QueNo</label ><input style="visibility: hidden;" id="QueNobox1" type="text" /> <br>
+    <input id="Opt1boxbtn"  type="radio" />  <label id="Opt1box1"></label>
+    
+    <input id="Opt2boxbtn" type="radio" />  <label id="Opt2box1"></label>
+    
+    <input id="Opt3boxbtn" type="radio" />   <label id="Opt3box1"></label>
+    
+    <input id="Opt4boxbtn" type="radio" />   <label id="Opt4box1"></label>
+    <br> <br>
+
+
+    <label >Question</label><input style="width: 100%;" id="Quebox" type="text" /> 
+    <label style="visibility: hidden;">QueNo</label ><input style="visibility: hidden;" id="QueNobox" type="text" /> <br>
+    <input id="Opt1boxbtn"  type="radio" />  <label id="Opt1box"></label>
+    
+    <input id="Opt2boxbtn" type="radio" />  <label id="Opt2box"></label>
+    
+    <input id="Opt3boxbtn" type="radio" />   <label id="Opt3box"></label>
+    
+    <input id="Opt4boxbtn" type="radio" />   <label id="Opt4box"></label>
+    <br> <br>
+
+
+    <label >Question</label><input style="width: 100%;" id="Quebox" type="text" /> 
+    <label style="visibility: hidden;">QueNo</label ><input style="visibility: hidden;" id="QueNobox" type="text" /> <br>
+    <input id="Opt1boxbtn"  type="radio" />  <label id="Opt1box"></label>
+    
+    <input id="Opt2boxbtn" type="radio" />  <label id="Opt2box"></label>
+    
+    <input id="Opt3boxbtn" type="radio" />   <label id="Opt3box"></label>
+    
+    <input id="Opt4boxbtn" type="radio" />   <label id="Opt4box"></label>
+    <br> <br>
+
+    <label >Question</label><input style="width: 100%;" id="Quebox" type="text" /> 
+    <label style="visibility: hidden;">QueNo</label ><input style="visibility: hidden;" id="QueNobox" type="text" /> <br>
+    <input id="Opt1boxbtn"  type="radio" />  <label id="Opt1box"></label>
+    
+    <input id="Opt2boxbtn" type="radio" />  <label id="Opt2box"></label>
+    
+    <input id="Opt3boxbtn" type="radio" />   <label id="Opt3box"></label>
+    
+    <input id="Opt4boxbtn" type="radio" />   <label id="Opt4box"></label>
+    <br> <br>
+
+    <label >Question</label><input style="width: 100%;" id="Quebox" type="text" /> 
+    <label style="visibility: hidden;">QueNo</label ><input style="visibility: hidden;" id="QueNobox" type="text" /> <br>
+    <input id="Opt1boxbtn"  type="radio" />  <label id="Opt1box"></label>
+    
+    <input id="Opt2boxbtn" type="radio" />  <label id="Opt2box"></label>
+    
+    <input id="Opt3boxbtn" type="radio" />   <label id="Opt3box"></label>
+    
+    <input id="Opt4boxbtn" type="radio" />   <label id="Opt4box"></label>
+    <br> <br>
+    
+    
+    <!-- trying -->
+    <!-- <ul>
+      <li id="Opt1box" ></li>
+      <li id="Opt2box"></li>
+      <li id="Opt3box"></li>
+      <li id="Opt4box"></li>
+    </ul> -->
+
+
+
+    <label>Correct Ans</label><input id="CorrectAnsbox" type="text" /> <br />
+    <br />
+
+    <hr />
+
+    <button id="ShowQue" style="cursor: pointer;">Get Question</button>
+
+    <!----------------- IMports + configuration ----------->
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCSmRfG5wjIpk4-QBeJfhx-B_081SYFeGU",
+        authDomain: "quiz-app-cc623.firebaseapp.com",
+        projectId: "quiz-app-cc623",
+        storageBucket: "quiz-app-cc623.appspot.com",
+        messagingSenderId: "95314827862",
+        appId: "1:95314827862:web:7da0673cb6a19e628c79f7",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      import {
+        getDatabase,
+        ref,
+        get,
+        set,
+        child,
+        update,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
+
+      const db = getDatabase();
+
+      //---------------------References ----------------------//
+      var quebox = document.getElementById("Quebox1");
+      var queNobox1 = document.getElementById("QueNobox1");
+      var opt1box1 = document.getElementById("Opt1box1");
+      var opt2box1 = document.getElementById("Opt2box1");
+      var opt3box1 = document.getElementById("Opt3box1");
+      var opt4box1 = document.getElementById("Opt4box1");
+      var correctansbox = document.getElementById("CorrectAnsbox");
+
+      var showQue = document.getElementById("ShowQue");
+
+      // ----------------selectData function-----------------------//
+     const randomindexarray=[];
+      function showQuestion() {
+        const dbref = ref(db);
+        //----------------adding a random index --------------------------//
+        var randomindex = Math.floor(Math.random() * 4);
+        queNobox.value = randomindex;
+        randomindexarray.push(randomindex);
+        console.log(randomindexarray);
+        
+
+        get(child(dbref, "TheQuestions/" + queNobox1.value))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              // quebox.value = snapshot.val().Question;
+              // opt1box.value = snapshot.val().Option1;
+              // opt2box.value = snapshot.val().Option2;
+              // opt3box.value = snapshot.val().Option3;
+              // opt4box.value = snapshot.val().Option4;
+              correctansbox.value=snapshot.val().CorrectAnswer;
+
+              console.log(snapshot);
+             
+              quebox1.value = snapshot.val().Question;
+              opt1box1.innerHTML = snapshot.val().Option1;
+              opt2box1.innerHTML = snapshot.val().Option2;
+              opt3box1.innerHTML = snapshot.val().Option3;
+              opt4box1.innerHTML = snapshot.val().Option4;
+
+            } else {
+              alert("Sorry ! Question not displayed  ");
+            }
+          })
+          .catch((error) => {
+            alert("unsuccessful ,error" + error);
+          });
+          
+      }
+
+      showQue.addEventListener("click", showQuestion);
+    </script>
+  </body>
+</html>

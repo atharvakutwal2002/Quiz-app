@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insert</title>
+    <style>
+      label {
+        display: inline-block;
+        width: 90px;
+      }
+      input,
+      select {
+        width: 120px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <label>QueNo</label><input id="QueNobox" type="text" /> <br />
+    <br />
+    <label>Question</label><input id="Quebox" type="text" /> <br />
+    <br />
+    <label>Option 1</label><input id="Opt1box" type="text" /> <br />
+    <br />
+    <label>Option 2</label><input id="Opt2box" type="text" /> <br />
+    <br />
+    <label>Option 3</label><input id="Opt3box" type="text" /> <br />
+    <br />
+    <label>Option 4</label><input id="Opt4box" type="text" /> <br /><br />
+    <label>Correct Ans</label><input id="CorrectAnsbox" type="text" /> <br />
+    <br />
+
+    <hr />
+    <button id="Insbtn">Insert</button>
+    <button id="Selbtn">Select</button>
+    <button id="Updbtn">Update</button>
+    <button id="Delbtn">Delete</button> <br />
+    <br />
+    <a href="showQue.html">show que</a>
+
+    <!----------------- IMports + configuration ----------->
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCSmRfG5wjIpk4-QBeJfhx-B_081SYFeGU",
+        authDomain: "quiz-app-cc623.firebaseapp.com",
+        projectId: "quiz-app-cc623",
+        storageBucket: "quiz-app-cc623.appspot.com",
+        messagingSenderId: "95314827862",
+        appId: "1:95314827862:web:7da0673cb6a19e628c79f7",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      import {
+        getDatabase,
+        ref,
+        get,
+        set,
+        child,
+        update,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
+
+      const db = getDatabase();
+
+      //---------------------References ----------------------//
+      var quebox = document.getElementById("Quebox");
+      var queNobox = document.getElementById("QueNobox");
+      var opt1box = document.getElementById("Opt1box");
+      var opt2box = document.getElementById("Opt2box");
+      var opt3box = document.getElementById("Opt3box");
+      var opt4box = document.getElementById("Opt4box");
+      var correctansbox = document.getElementById("CorrectAnsbox");
+
+      var insBtn = document.getElementById("Insbtn");
+      var selBtn = document.getElementById("Selbtn");
+      var updBtn = document.getElementById("Updbtn");
+      var delBtn = document.getElementById("Delbtn");
+
+      //-----------------Insert Data Function------------------//
+      function InsertData() {
+        set(ref(db, "TheQuestions/" + queNobox.value), {
+          Question: Quebox.value,
+          QueNo: queNobox.value,
+          Option1: opt1box.value,
+          Option2: opt2box.value,
+          Option3: opt3box.value,
+          Option4: opt4box.value,
+          CorrectAnswer:correctansbox.value
+        })
+          .then(() => {
+            alert("Data Inserted ");
+          })
+          .catch((error) => {
+            alert("unsuccessful , error" + error);
+          });
+      }
+
+      // ----------------selectData function-----------------------//
+      function SelectData() {
+        const dbref = ref(db);
+
+        get(child(dbref, "TheQuestions/" + queNobox.value))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              quebox.value = snapshot.val().Question;
+              opt1box.value = snapshot.val().Option1;
+              opt2box.value = snapshot.val().Option2;
+              opt3box.value = snapshot.val().Option3;
+              opt4box.value = snapshot.val().Option4;
+              correctansbox.value=snapshot.val().CorrectAnswer;
+            } else {
+              alert("No data found ");
+            }
+          })
+          .catch((error) => {
+            alert("unsuccessful ,error" + error);
+          });
+      }
+
+      //--------------- Update Data function -----------------------//
+
+      function UpdateData() {
+        update(ref(db, "TheStudents/" + queNobox.value), {
+          Question: Quebox.value,
+
+          Option1: opt1box.value,
+          Option2: opt2box.value,
+          Option3: opt3box.value,
+          Option4: opt4box.value,
+          CorrectAnswer:correctansbox.value
+        })
+          .then(() => {
+            alert("Data updated ");
+          })
+          .catch((error) => {
+            alert("unsuccessful updation , error" + error);
+          });
+      }
+      //--------------- Delete Data function -----------------------//
+
+      function DeleteData() {
+        remove(ref(db, "TheStudents/" + queNobox.value))
+          .then(() => {
+            alert("Data Deleted ");
+          })
+          .catch((error) => {
+            alert("unsuccessful deletion , error" + error);
+          });
+      }
+
+      //----------------------Assigning events to btns ------------//
+      insBtn.addEventListener("click", InsertData);
+      selBtn.addEventListener("click", SelectData);
+      updBtn.addEventListener("click", UpdateData);
+      delBtn.addEventListener("click", DeleteData);
+    </script>
+  </body>
+</html>

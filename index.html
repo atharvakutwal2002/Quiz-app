@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Questions</title>
+  </head>
+  <body>
+    <section>Question :<input class="question" id="quebox" type="text" /></section>
+    <select name="" id="">
+      <option id="Opt1" value="opt1"></option>
+      <option id="Opt2" value="opt2"></option>
+      <option id="Opt3" value="opt3"></option>
+      <option id="Opt4" value="opt4"></option>
+    </select>
+    <button id="getQuestion">Question</button>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyCSmRfG5wjIpk4-QBeJfhx-B_081SYFeGU",
+        authDomain: "quiz-app-cc623.firebaseapp.com",
+        projectId: "quiz-app-cc623",
+        storageBucket: "quiz-app-cc623.appspot.com",
+        messagingSenderId: "95314827862",
+        appId: "1:95314827862:web:7da0673cb6a19e628c79f7",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      import {
+        getDatabase,
+        ref,
+        get,
+        set,
+        child,
+        update,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-database.js";
+
+      const db = getDatabase();
+
+      var Quebox = document.getElementById("quebox");
+      var Option1 = document.getElementById("Opt1");
+      var Option2 = document.getElementById("Opt2");
+      var Option3 = document.getElementById("Opt3");
+      var Option4 = document.getElementById("Opt4");
+      
+
+    //   var insBtn = document.getElementById("Insbtn");
+    //   var selBtn = document.getElementById("Selbtn");
+    //   var updBtn = document.getElementById("Updbtn");
+    //   var delBtn = document.getElementById("Delbtn");
+
+    function SelectData() {
+        const dbref = ref(db);
+
+        get(child(dbref, "TheQuestions/" + 1))
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              Quebox.value = snapshot.val().Question;
+              Option1.value = snapshot.val().Opt1;
+              Option2.value = snapshot.val().Opt2;
+              Option3.value = snapshot.val().Opt3;
+            } else {
+              alert("No data found ");
+            }
+          })
+          .catch((error) => {
+            alert("unsuccessful ,error" + error);
+          });
+      }
+
+    </script>
+
+
+
+    <script>
+      var randomindex = Math.floor(Math.random() * 4);
+      console.log(randomindex);
+
+      const Getquestion= document.getElementById("getQuestion");
+      Getquestion.addEventListener("click",SelectData);
+    </script>
+  </body>
+</html>
