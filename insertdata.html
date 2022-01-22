@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -29,7 +29,7 @@
     <label>Option 3</label><input id="Opt3box" type="text" /> <br />
     <br />
     <label>Option 4</label><input id="Opt4box" type="text" /> <br /><br />
-    <label>Correct Ans</label><input id="CorrectAnsbox" type="text" /> <br />
+    <!-- <label>Correct Ans</label><input id="CorrectAnsbox" type="text" /> <br /> -->
     <br />
 
     <hr />
@@ -43,12 +43,9 @@
     <!----------------- IMports + configuration ----------->
 
     <script type="module">
-      // Import the functions you need from the SDKs you need
+      
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
+      
       const firebaseConfig = {
         apiKey: "AIzaSyCSmRfG5wjIpk4-QBeJfhx-B_081SYFeGU",
         authDomain: "quiz-app-cc623.firebaseapp.com",
@@ -79,7 +76,7 @@
       var opt2box = document.getElementById("Opt2box");
       var opt3box = document.getElementById("Opt3box");
       var opt4box = document.getElementById("Opt4box");
-      var correctansbox = document.getElementById("CorrectAnsbox");
+      // var correctansbox = document.getElementById("CorrectAnsbox");
 
       var insBtn = document.getElementById("Insbtn");
       var selBtn = document.getElementById("Selbtn");
@@ -95,7 +92,7 @@
           Option2: opt2box.value,
           Option3: opt3box.value,
           Option4: opt4box.value,
-          CorrectAnswer:correctansbox.value
+          // CorrectAnswer:correctansbox.value
         })
           .then(() => {
             alert("Data Inserted ");
@@ -106,57 +103,57 @@
       }
 
       // ----------------selectData function-----------------------//
-      function SelectData() {
-        const dbref = ref(db);
+      // function SelectData() {
+      //   const dbref = ref(db);
 
-        get(child(dbref, "TheQuestions/" + queNobox.value))
-          .then((snapshot) => {
-            if (snapshot.exists()) {
-              quebox.value = snapshot.val().Question;
-              opt1box.value = snapshot.val().Option1;
-              opt2box.value = snapshot.val().Option2;
-              opt3box.value = snapshot.val().Option3;
-              opt4box.value = snapshot.val().Option4;
-              correctansbox.value=snapshot.val().CorrectAnswer;
-            } else {
-              alert("No data found ");
-            }
-          })
-          .catch((error) => {
-            alert("unsuccessful ,error" + error);
-          });
-      }
+      //   get(child(dbref, "TheQuestions/" + queNobox.value))
+      //     .then((snapshot) => {
+      //       if (snapshot.exists()) {
+      //         quebox.value = snapshot.val().Question;
+      //         opt1box.value = snapshot.val().Option1;
+      //         opt2box.value = snapshot.val().Option2;
+      //         opt3box.value = snapshot.val().Option3;
+      //         opt4box.value = snapshot.val().Option4;
+      //         correctansbox.value=snapshot.val().CorrectAnswer;
+      //       } else {
+      //         alert("No data found ");
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       alert("unsuccessful ,error" + error);
+      //     });
+      // }
 
-      //--------------- Update Data function -----------------------//
+      // //--------------- Update Data function -----------------------//
 
-      function UpdateData() {
-        update(ref(db, "TheStudents/" + queNobox.value), {
-          Question: Quebox.value,
+      // function UpdateData() {
+      //   update(ref(db, "TheStudents/" + queNobox.value), {
+      //     Question: Quebox.value,
 
-          Option1: opt1box.value,
-          Option2: opt2box.value,
-          Option3: opt3box.value,
-          Option4: opt4box.value,
-          CorrectAnswer:correctansbox.value
-        })
-          .then(() => {
-            alert("Data updated ");
-          })
-          .catch((error) => {
-            alert("unsuccessful updation , error" + error);
-          });
-      }
-      //--------------- Delete Data function -----------------------//
+      //     Option1: opt1box.value,
+      //     Option2: opt2box.value,
+      //     Option3: opt3box.value,
+      //     Option4: opt4box.value,
+      //     CorrectAnswer:correctansbox.value
+      //   })
+      //     .then(() => {
+      //       alert("Data updated ");
+      //     })
+      //     .catch((error) => {
+      //       alert("unsuccessful updation , error" + error);
+      //     });
+      // }
+      // //--------------- Delete Data function -----------------------//
 
-      function DeleteData() {
-        remove(ref(db, "TheStudents/" + queNobox.value))
-          .then(() => {
-            alert("Data Deleted ");
-          })
-          .catch((error) => {
-            alert("unsuccessful deletion , error" + error);
-          });
-      }
+      // function DeleteData() {
+      //   remove(ref(db, "TheStudents/" + queNobox.value))
+      //     .then(() => {
+      //       alert("Data Deleted ");
+      //     })
+      //     .catch((error) => {
+      //       alert("unsuccessful deletion , error" + error);
+      //     });
+      // }
 
       //----------------------Assigning events to btns ------------//
       insBtn.addEventListener("click", InsertData);
@@ -165,4 +162,4 @@
       delBtn.addEventListener("click", DeleteData);
     </script>
   </body>
-</html>
+</html> -->

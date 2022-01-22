@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      label {
+        display: inline-block;
+        width: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <label>Name</label><input id="Namebox" type="text" /> <br />
+    <br />
+    <label>RollNo</label><input id="Rollbox" type="text" /> <br />
+    <br />
+    <label>Section</label><input id="Secbox" type="text" /> <br />
+    <br />
+    <select id="Genbox">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+    <hr />
+
+    <button id="Insbtn">Insert</button>
+    <button id="Selbtn">SELECT</button>
+    <button id="Updbtn">UPDATE</button>
+    <button id="Delbtn">DELETE</button>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.4/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCSmRfG5wjIpk4-QBeJfhx-B_081SYFeGU",
+          authDomain: "quiz-app-cc623.firebaseapp.com",
+          databaseURL: "https://quiz-app-cc623-default-rtdb.firebaseio.com",
+          projectId: "quiz-app-cc623",
+          storageBucket: "quiz-app-cc623.appspot.com",
+          messagingSenderId: "95314827862",
+          appId: "1:95314827862:web:7da0673cb6a19e628c79f7"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import {getDatabase,ref,set,child,update,remove} from "https://www.gstatic.com/firebasejs/9.6.4/firebase-database.js";
+
+        const db= getDatabase();
+
+        var namebox=document.getElementById("Namebox");
+        var rollbox=document.getElementById("Rollbox");
+        var secbox=document.getElementById("Secbox");
+        var genbox=document.getElementById("Genbox");
+
+        var insBtn= document.getElementById("Insbtn");
+        var selBtn= document.getElementById("Selbtn");
+        var updBtn= document.getElementById("Updbtn");
+        var delBtn= document.getElementById("Delbtn");
+
+        function InsertData(){
+            set(ref(db, "TheStudents/" + rollbox.value),{
+                NameOfStd : namebox.value,
+                RollNo : rollbox.value,
+                Section : secbox.value,
+                Gender : genbox.value,
+
+            })
+            .then(()=>{
+                alert("data added");
+            })
+            .catch((error)=>{
+                alert("unsuccessful");
+            });
+        }
+        
+        insBtn.addEventListener('click', InsertData);
+
+      </script>
+
+  </body>
+</html>
